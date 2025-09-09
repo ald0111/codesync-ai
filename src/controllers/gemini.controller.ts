@@ -1,14 +1,11 @@
 import { Request, Response } from 'express';
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import dotenv from 'dotenv';
-
-dotenv.config();
 
 
 // ADD THIS LINE FOR DEBUGGING
 // console.log("Attempting to use API Key:", process.env.GEMINI_API_KEY);
-
 // Initialize the Gemini Model
+console.log("Using API Key:", process.env.GEMINI_API_KEY);
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
 const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash-latest' });
 
@@ -29,7 +26,6 @@ export const generateResponse = async (req: Request, res: Response) => {
     const result = await model.generateContent(full_prompt);
     const response = await result.response;
     const text = response.text();
-
     res.status(200).json({ response: text });
   } catch (error) {
     console.error('Error in Gemini controller:', error);

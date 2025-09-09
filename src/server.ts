@@ -1,8 +1,8 @@
-import express, { Application, Request, Response } from "express";
 import dotenv from "dotenv";
+dotenv.config();
+import express, { Application, Request, Response } from "express";
 import geminiRoutes from "./routes/gemini.routes";
 
-dotenv.config();
 
 const app: Application = express();
 const PORT = process.env.PORT || 3000;
@@ -23,6 +23,7 @@ app.use(express.json());
 // }
 
 //http://localhost:8000/api/v1/gemini/generate
+
 app.use('/api/v1/gemini', geminiRoutes);
 
 app.listen(PORT, () => {
